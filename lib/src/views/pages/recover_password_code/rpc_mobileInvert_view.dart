@@ -26,7 +26,9 @@ class _RpcMobileInvertViewState extends State<RpcMobileInvertView> {
     widget.controller.retrievelInputs();
 
     return LoginRecoverMobileComponentView(
-      image: '../image/verificacao_codigo.png',
+      image: 'assets/image/logo.png',
+      widthImage: 150,
+      heightImage: 150,
       listWidgets: [
         TitleTextComponentView(tittleText: "Digite o seu código", fontSize: 20),
         SubTittleComponentView(

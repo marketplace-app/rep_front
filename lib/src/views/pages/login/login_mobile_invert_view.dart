@@ -35,7 +35,7 @@ class LoginMobileInvertViewState extends State<LoginMobileInvertView> {
             tittleText: "Olá, seja bem-vindo!", fontSize: 20),
         SubTittleComponentView(
             tittleText:
-                "Digite o seu usuário e senha para acessar a plataforma",
+                "Digite o seu usuário e senha para acessar a plataforma TESTE",
             fontSize: 15),
         SingleChildScrollView(
           child: Form(

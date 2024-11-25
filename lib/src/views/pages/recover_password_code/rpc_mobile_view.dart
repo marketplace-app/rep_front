@@ -25,7 +25,9 @@ class _RpcMobileViewState extends State<RpcMobileView> {
     ColorThemeController color = context.watch<ColorThemeController>();
     widget.controller.retrievelInputs();
     return LoginRecoverMobileComponentView(
-      image: '../image/verificacao_codigo.png',
+      image: 'assets/image/logo.png',
+      widthImage: 150,
+      heightImage: 150,
       listWidgets: [
         TitleTextComponentView(tittleText: "Digite o seu código", fontSize: 20),
         SubTittleComponentView(

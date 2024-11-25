@@ -25,7 +25,9 @@ class _RpnMobileViewState extends State<RpnMobileView> {
     widget.controller.retrievelInputs();
 
     return LoginRecoverMobileComponentView(
-      image: '../image/digite_nova_senha.png',
+      image: 'assets/image/logo.png',
+      widthImage: 150,
+      heightImage: 150,
       listWidgets: [
         TitleTextComponentView(
             tittleText: "Digite sua nova senha!", fontSize: 20),

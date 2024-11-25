@@ -1,25 +1,28 @@
-// ignore_for_file: must_be_immutable
-
-import 'package:marketplace/src/controllers/rpn_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:marketplace/src/controllers/list_product_controller.dart';
 
-class RpnView extends StatelessWidget {
-  RpnController controller;
-  RpnView({super.key, required this.controller});
+class ListProductView extends StatefulWidget {
+  ListProductController controller;
+
+  ListProductView({super.key, required this.controller});
 
   @override
-  Widget build(BuildContext context) {
-    //Captura de lagura e altura da tela em tempo real
-    controller
-        .getRpnModel()
-        ?.setWidth(MediaQuery.of(context).size.width);
-    controller
-        .getRpnModel()
-        ?.setHeight(MediaQuery.of(context).size.height);
-    double width = controller.getRpnModel()?.getWidth();
-    double height = controller.getRpnModel()?.getHeight();
+  State<ListProductView> createState() => _ListProductViewState();
+}
 
-    //Validação de qual a tela será chamada para realizar a troca de layout
+class _ListProductViewState extends State<ListProductView> {
+  @override
+  Widget build(BuildContext context) {
+
+    widget.controller
+        .getListProductModel()
+        ?.setWidth(MediaQuery.of(context).size.width);
+    widget.controller
+        .getListProductModel()
+        ?.setHeight(MediaQuery.of(context).size.height);
+    double width = widget.controller.getListProductModel()?.getWidth();
+    double height = widget.controller.getListProductModel()?.getHeight();
+
     if (height > 300 && height < 500 && width > 600) {
       return Scaffold(
         body: AnimatedSwitcher(
@@ -27,17 +30,18 @@ class RpnView extends StatelessWidget {
           transitionBuilder: (Widget child, Animation<double> animation) {
             return FadeTransition(opacity: animation, child: child);
           },
-          child: controller.getRpnMobileInvertView(),
+          child: widget.controller.getListProductMobileInvertView(),
         ),
       );
-    } else {
+    }
+    else {
       return Scaffold(
         body: AnimatedSwitcher(
           duration: const Duration(milliseconds: 500),
           transitionBuilder: (Widget child, Animation<double> animation) {
             return FadeTransition(opacity: animation, child: child);
           },
-          child: controller.getRpnMobileView(),
+          child: widget.controller.getListProductMobileView(),
         ),
       );
     }

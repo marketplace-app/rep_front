@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:marketplace/src/models/local_storage_model.dart';
 import 'package:marketplace/src/models/mensage_model.dart';
 import 'package:marketplace/src/models/rpc_model.dart';
-import 'package:marketplace/src/views/pages/recover_password_code/rpc_desktop_view.dart';
 import 'package:marketplace/src/views/pages/recover_password_code/rpc_mobileInvert_view.dart';
 import 'package:marketplace/src/views/pages/recover_password_code/rpc_mobile_view.dart';
 import 'package:marketplace/src/views/pages/recover_password_code/rpc_view.dart';
@@ -14,7 +13,6 @@ class RpcController {
   RpcModel? _rpcModel;
   RpcMobileView? _rpcMobileView;
   RpcMobileInvertView? _rpcMobileInvertView;
-  RpcDesktopView? _rpcDesktopView;
   RpcView? _rpcView;
   static String token = '';
   final formKey = GlobalKey<FormState>();
@@ -25,7 +23,6 @@ class RpcController {
     _rpcMobileView = RpcMobileView(controller: this);
     _rpcModel = RpcModel();
     _rpcMobileInvertView = RpcMobileInvertView(controller: this);
-    _rpcDesktopView = RpcDesktopView(controller: this);
     _rpcView = RpcView(controller: this);
   }
 
@@ -85,10 +82,6 @@ class RpcController {
 
   RpcMobileInvertView? getRpcMobileInvertView() {
     return _rpcMobileInvertView;
-  }
-
-  RpcDesktopView? getRpcDesktopView() {
-    return _rpcDesktopView;
   }
 
   getRpcView() {

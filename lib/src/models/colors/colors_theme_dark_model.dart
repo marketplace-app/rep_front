@@ -5,25 +5,25 @@ import 'package:flutter/material.dart';
 
 class ColorsThemePrincipalModel {
   ///Cores de background de paginas e botões
-  Color _colorBackgroundPrimary = Color(0xFF9A0007);
-  Color _colorBackgroundSecundary = Color(0xFFF47420);
+  Color _colorBackgroundPrimary = Color(0xFF3A57E8);
+  Color _colorBackgroundSecundary = Color(0xFF3A8EE8);
   Color _colorBackgroundTerceary = Colors.black;
   Color _colorBackgroundQuaternary = Colors.white;
   ///Cores dos títulos
   Color _colorTittlePrimary = Colors.black;
   Color _colorTittleSecundary = Colors.white;
-  Color _colorTittleTerceary = Color(0xFF9A0007);
+  Color _colorTittleTerceary = Color(0xFF3A57E8);
   //Cores dos subtítulos
   Color _colorSubTittlePrimary = Colors.black;
   Color _colorSubTittleSecundary = Colors.white;
-  Color _colorSubTittleTerceary = Color(0xFF9A0007);
+  Color _colorSubTittleTerceary = Color(0xFF3A57E8);
   //Cores do background dos botão quando o mouse por cima
-  Color _colorBackgroudButtonHover1 = Color(0xFF570105);
-  Color _colorBackgroudButtonHover2 = Color(0xFFA14204);
-  Color _colorBackgroudButtonHover3 = Color(0xFF845F03);
+  Color _colorBackgroudButtonHover1 = Color(0xFF293DAA);
+  Color _colorBackgroudButtonHover2 = Color(0xFF1D4B7A);
+  Color _colorBackgroudButtonHover3 = Color(0xFF481D70);
   //Cores das bordas
-  Color _colorBorderPrimary = Color.fromARGB(255, 0, 154, 62);
-  Color _colorBorderSecundary = Color(0xFFF47420);
+  Color _colorBorderPrimary = Color(0xFF3A57E8);
+  Color _colorBorderSecundary = Color(0xFF3A8EE8);
   Color _colorBorderTerceary = Colors.black;
   Color _colorBorderQuaternary = Colors.white;
 

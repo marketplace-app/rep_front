@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:marketplace/src/controllers/rpe_controller.dart';
+import 'package:provider/provider.dart';
+
+import '../../../controllers/color_theme_controller.dart';
 //import 'package:project01/src/controllers/login_controller.dart';
 //import 'package:provider/provider.dart';
 
@@ -14,6 +18,7 @@ class _ForgotPasswordComponentViewState
     extends State<ForgotPasswordComponentView> {
   @override
   Widget build(BuildContext context) {
+    ColorThemeController colorTheme = context.watch<ColorThemeController>();
     //final controller = context.watch<LoginController>();
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -27,14 +32,16 @@ class _ForgotPasswordComponentViewState
           cursor: SystemMouseCursors.click,
           child: GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, '/recoverpassword');
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => RpeController().getRpeView()));
+
             },
-            child: const Padding(
+            child:  Padding(
               padding: EdgeInsets.symmetric(horizontal: 5),
               child: Text(
                 "Clique aqui!",
                 style: TextStyle(
-                    fontFamily: "Poppins", color: Colors.orange, fontSize: 14),
+                    fontFamily: "Poppins", color: colorTheme.getColorTheme().getColorTittleTerceary(), fontSize: 14, fontWeight: FontWeight.bold),
               ),
             ),
           ),

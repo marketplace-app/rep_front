@@ -10,7 +10,9 @@ import 'package:flutter/material.dart';
 
 class LoginView extends StatefulWidget {
   LoginController controller;
+  
   LoginView({super.key, required this.controller});
+  
 
   @override
   State<LoginView> createState() => _LoginViewState();
@@ -19,6 +21,7 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
+
     widget.controller
         .getLoginModel()
         ?.setWidth(MediaQuery.of(context).size.width);
@@ -38,17 +41,9 @@ class _LoginViewState extends State<LoginView> {
           child: widget.controller.getLoginMobileInvertView(),
         ),
       );
-    } else if (width > 700) {
-      return Scaffold(
-        body: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 500),
-          transitionBuilder: (Widget child, Animation<double> animation) {
-            return FadeTransition(opacity: animation, child: child);
-          },
-          child: widget.controller.getLoginDesktopView(),
-        ),
-      );
-    } else {
+    } 
+    else {
+      print('Acessei login mobile');
       return Scaffold(
         body: AnimatedSwitcher(
           duration: const Duration(milliseconds: 500),

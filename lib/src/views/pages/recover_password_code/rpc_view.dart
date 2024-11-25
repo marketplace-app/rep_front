@@ -32,16 +32,6 @@ class _RpcViewState extends State<RpcView> {
             },
             child: widget.controller.getRpcMobileInvertView()),
       );
-    } else if (width > 700) {
-      return Scaffold(
-        body: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 500),
-          transitionBuilder: (Widget child, Animation<double> animation) {
-            return FadeTransition(opacity: animation, child: child);
-          },
-          child: widget.controller.getRpcDesktopView(),
-        ),
-      );
     } else {
       return Scaffold(
         body: AnimatedSwitcher(

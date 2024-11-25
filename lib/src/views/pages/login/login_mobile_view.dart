@@ -28,14 +28,18 @@ class LoginMobileViewState extends State<LoginMobileView> {
     ColorThemeController color = context.watch<ColorThemeController>();
     widget.controller.retrievelInputs();
 
-    return LoginRecoverMobileComponentView(
-      image: '../image/robo_smartphone.png',
+    return Scaffold(
+        resizeToAvoidBottomInset: true,
+       body : LoginRecoverMobileComponentView(
+      image: 'assets/image/logo.png',
+      heightImage: 150,
+      widthImage: 150,
       listWidgets: [
         TitleTextComponentView(
             tittleText: "Olá, seja bem-vindo!", fontSize: 20.0),
         SubTittleComponentView(
             tittleText:
-                "Digite o seu usuário e senha para acessar a plataforma",
+                "Digite o seu nome de usuário e a sua senha para reservar aluguéis",
             fontSize: 15),
         SingleChildScrollView(
           child: Form(
@@ -118,6 +122,7 @@ class LoginMobileViewState extends State<LoginMobileView> {
         }
         return false;
       },
+    )
     );
   }
 }

@@ -33,6 +33,7 @@ class _ButtonGenericState extends State<ButtonGeneric> {
   @override
   Widget build(BuildContext context) {
     return TextButton(
+
       onPressed: widget.function,
       style: TextButton.styleFrom(
         backgroundColor: widget.backgroundColor,

@@ -25,7 +25,9 @@ class _RpeMobileViewState extends State<RpeMobileView> {
     widget.controller.retrievelInputs();
 
     return LoginRecoverMobileComponentView(
-      image: '../image/esqueci_senha.png',
+      image: 'assets/image/logo.png',
+      widthImage: 150,
+      heightImage: 150,
       listWidgets: [
         TitleTextComponentView(
             tittleText: "Poxa, Fica Tranquilo!", fontSize: 20),

@@ -6,7 +6,6 @@ import 'package:marketplace/src/controllers/rpn_controller.dart';
 import 'package:marketplace/src/models/local_storage_model.dart';
 import 'package:marketplace/src/models/mensage_model.dart';
 import 'package:marketplace/src/models/rpe_model.dart';
-import 'package:marketplace/src/views/pages/recover_password_email/rpe_desktop_view.dart';
 import 'package:marketplace/src/views/pages/recover_password_email/rpe_mobileinvert_view.dart';
 import 'package:marketplace/src/views/pages/recover_password_email/rpe_mobile_view.dart';
 import 'package:marketplace/src/views/pages/recover_password_email/rpe_view.dart';
@@ -14,7 +13,6 @@ import 'package:flutter/material.dart';
 
 class RpeController extends ChangeNotifier {
   RpeModel? _rpeModel;
-  RpeDesktopView? _rpeDesktopView;
   RpeMobileInvertView? _rpeMobileInvertView;
   RpeMobileView? _rpeMobileView;
   RpeView? _rpeView;
@@ -26,7 +24,6 @@ class RpeController extends ChangeNotifier {
   RpeController() {
     _rpeModel = RpeModel();
     _rpeMobileInvertView = RpeMobileInvertView(controller: this);
-    _rpeDesktopView = RpeDesktopView(controller: this);
     _rpeMobileView = RpeMobileView(controller: this);
     _rpeView = RpeView(controller: this);
   }
@@ -47,13 +44,20 @@ class RpeController extends ChangeNotifier {
       loading.value = !loading.value;
       List itens = await emailRepository.getEmail(_rpeModel?.getEmail());
       if (itens[0]) {
+        print("Teste");
         RpnController.email = _rpeModel?.getEmail();
         RpcController.token = itens[1];
         emailController.text = '';
         loading.value = !loading.value;
-        Navigator.pushNamed(context, "/recoverpasswordcode");
+        Navigator.pushAndRemoveUntil(context,
+            MaterialPageRoute(
+                builder: (context) => RpcController().getRpcView()
+            ),
+            (route) => true,
+        ); //Não será possível retornar mais
       }else {
         loading.value = !loading.value;
+        print("Teste");
         MensageModel.showSnackBar(
           context: context,
           textDescription: itens[1],
@@ -86,10 +90,6 @@ class RpeController extends ChangeNotifier {
 
   RpeModel? getRpeModel() {
     return _rpeModel;
-  }
-
-  getRpeDesktopView() {
-    return _rpeDesktopView;
   }
 
   getRpeMobileInvertView() {

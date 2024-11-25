@@ -5,17 +5,17 @@ import 'package:marketplace/src/models/local_storage_model.dart';
 import 'package:marketplace/src/models/login_model.dart';
 import 'package:marketplace/src/models/mensage_model.dart';
 import 'package:marketplace/src/views/components/atomic/show_dialog.dart';
-import 'package:marketplace/src/views/pages/login/login_desktop_view.dart';
 import 'package:marketplace/src/views/pages/login/login_mobile_invert_view.dart';
 import 'package:marketplace/src/views/pages/login/login_mobile_view.dart';
 import 'package:marketplace/src/views/pages/login/login_view.dart';
 import 'package:flutter/material.dart';
 
+import 'add_itens_controller.dart';
+
 class LoginController extends ChangeNotifier {
   LoginModel? _loginModel;
   LoginMobileView? _loginMobileView;
   LoginMobileInvertView? _loginMobileInvertView;
-  LoginDesktopView? _loginDesktopView;
   LoginView? _loginView;
   LoginRepositoryApi loginRepositoryApi = LoginRepositoryApi();
   ValueNotifier loading = ValueNotifier<bool>(false);
@@ -27,9 +27,6 @@ class LoginController extends ChangeNotifier {
   LoginController() {
     _loginModel = LoginModel();
     _loginMobileView = LoginMobileView(
-      controller: this,
-    );
-    _loginDesktopView = LoginDesktopView(
       controller: this,
     );
     _loginMobileInvertView = LoginMobileInvertView(
@@ -83,7 +80,7 @@ class LoginController extends ChangeNotifier {
         userController.text = '';
         passwordController.text = '';
         loading.value = !loading.value;
-        Navigator.pushNamed(context, '/additens');
+        Navigator.push(context, AddItensController().showView());
       } else {
         loading.value = !loading.value;
         MensageModel.showSnackBar(
@@ -98,10 +95,6 @@ class LoginController extends ChangeNotifier {
 
   getLoginMobileView() {
     return _loginMobileView;
-  }
-
-  getLoginDesktopView() {
-    return _loginDesktopView;
   }
 
   getLoginMobileInvertView() {

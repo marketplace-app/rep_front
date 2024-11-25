@@ -1,9 +1,8 @@
 import 'package:marketplace/src/controllers/color_theme_controller.dart';
+import 'package:marketplace/src/controllers/list_product_controller.dart';
 import 'package:marketplace/src/controllers/login_controller.dart';
 import 'package:marketplace/src/controllers/rpe_controller.dart';
 import 'package:marketplace/src/controllers/rpn_controller.dart';
-import 'package:marketplace/src/routes/manager_routes.dart';
-import 'package:marketplace/src/routes/observer_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,15 +22,16 @@ class _AppState extends State<App> {
         ChangeNotifierProvider(create: (_) => RpeController()),
         ChangeNotifierProvider(create: (_) => ColorThemeController(),),
         ChangeNotifierProvider(create: (_) => RpnController()),
+        ChangeNotifierProvider(create: (_) => ListProductController())
 
       ],
       // ignore: prefer_const_constructors
-      child: MaterialApp(
+      child:MaterialApp(
         debugShowCheckedModeBanner: false,
-        navigatorObservers: [ObserverRoutes()],
-        onGenerateRoute: ManagerRoutes.generateRoute,
-        initialRoute: '/login',
-      ),
+       home: ListProductController().getListProductView(),
+      )
+      ,
     );
   }
 }
+

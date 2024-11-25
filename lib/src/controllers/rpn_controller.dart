@@ -4,7 +4,6 @@ import 'package:marketplace/src/api/repositories/password_repository.dart';
 import 'package:marketplace/src/models/local_storage_model.dart';
 import 'package:marketplace/src/models/mensage_model.dart';
 import 'package:marketplace/src/models/rpn_model.dart';
-import 'package:marketplace/src/views/pages/recover_password_new/rpn_desktop_view.dart';
 import 'package:marketplace/src/views/pages/recover_password_new/rpn_mobile_view.dart';
 import 'package:marketplace/src/views/pages/recover_password_new/rpn_mobileinvert_view.dart';
 import 'package:marketplace/src/views/pages/recover_password_new/rpn_view.dart';
@@ -13,7 +12,6 @@ import 'package:flutter/widgets.dart';
 
 class RpnController extends ChangeNotifier {
   RpnModel? _rpnModel;
-  RpnDesktopView? _rpnDesktopView;
   RpnMobileView? _rpnMobileView;
   RpnMobileInvertView? _rpnMobileInvertView;
   RpnView? _rpnView;
@@ -26,7 +24,6 @@ class RpnController extends ChangeNotifier {
 
   RpnController() {
     _rpnModel = RpnModel();
-    _rpnDesktopView = RpnDesktopView(controller: this);
     _rpnMobileView = RpnMobileView(controller: this);
     _rpnView = RpnView(controller: this);
     _rpnMobileInvertView = RpnMobileInvertView(controller: this);
@@ -99,10 +96,6 @@ class RpnController extends ChangeNotifier {
 
   returnLogin(BuildContext context) {
     Navigator.pushNamed(context, "/login");
-  }
-
-  getRpnDesktopView() {
-    return _rpnDesktopView;
   }
 
   getRpnMobileView() {
