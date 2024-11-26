@@ -31,7 +31,7 @@ class LoginMobileViewState extends State<LoginMobileView> {
     return Scaffold(
         resizeToAvoidBottomInset: true,
        body : LoginRecoverMobileComponentView(
-      image: 'assets/image/logo.png',
+      image: 'assets/image/logonova.png',
       heightImage: 150,
       widthImage: 150,
       listWidgets: [

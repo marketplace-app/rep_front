@@ -40,18 +40,21 @@ class _ListProductsMobileTemplateState
               child: Row(
                 children: [
                   Image.asset(
-                    'assets/image/logocorbranca.png',
-                    width: 40,
-                    height: 40,
+                    'assets/image/logonova.png',
+                    width: 60,
+                    height: 60,
                     fit: BoxFit.contain,
                   ),
                   const SizedBox(width: 10),
                   Text(
-                    'LarClick',
+                    'APP NOVO',
                     style: TextStyle(
                       color: color.getColorTheme().getColorTittleSecundary(),
+                      fontFamily: 'Poppins',
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold)
                     ),
-                  ),
+              
                 ],
               ),
             ),
@@ -79,13 +82,13 @@ class _ListProductsMobileTemplateState
                 ),
                 child: ListView.builder(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 50,
+                    horizontal: 15, 
                     vertical: 10,
                   ),
                   itemCount: widget.listWidgetsDisplay.length,
                   itemBuilder: (context, index) {
                     return Padding(
-                      padding: const EdgeInsets.only(bottom: 15),
+                      padding: const EdgeInsets.only(bottom: 10),
                       child: widget.listWidgetsDisplay[index],
                     );
                   },

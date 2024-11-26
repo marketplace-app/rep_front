@@ -25,7 +25,7 @@ class _RpcMobileViewState extends State<RpcMobileView> {
     ColorThemeController color = context.watch<ColorThemeController>();
     widget.controller.retrievelInputs();
     return LoginRecoverMobileComponentView(
-      image: 'assets/image/logo.png',
+      image: 'assets/image/logonova.png',
       widthImage: 150,
       heightImage: 150,
       listWidgets: [
