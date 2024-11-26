@@ -1,29 +1,16 @@
-/*
-* Template da tela padrão do sistema com cabeçalho, menu e campo aberto para a
-* incrementar qualquer lista de widgets
-*
-* */
-
-
-import 'package:marketplace/src/app/app.dart';
-import 'package:marketplace/src/controllers/color_theme_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:marketplace/src/views/components/atomic/button_generic.dart';
-import 'package:marketplace/src/views/components/molecular/header_page.dart';
+import 'package:marketplace/src/controllers/color_theme_controller.dart';
 import 'package:provider/provider.dart';
 
-// ignore: must_be_immutable
 class ListProductsMobileTemplate extends StatefulWidget {
   List listWidgetsDisplay = [];
   List listWidgetsDrawer = [];
-  //bool Function(KeyEvent) function;
 
-  ListProductsMobileTemplate({super.key,
-      required this.listWidgetsDisplay,
-      required this.listWidgetsDrawer,
-      //required this.function,
-      });
+  ListProductsMobileTemplate({
+    super.key,
+    required this.listWidgetsDisplay,
+    required this.listWidgetsDrawer,
+  });
 
   @override
   State<ListProductsMobileTemplate> createState() =>
@@ -35,11 +22,10 @@ class _ListProductsMobileTemplateState
   @override
   Widget build(BuildContext context) {
     ColorThemeController color = context.watch<ColorThemeController>();
-    //ServicesBinding.instance.keyboard.addHandler(widget.function);
 
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.white,
         ),
         backgroundColor: color.getColorTheme().getColorBackgroudPrimary(),
@@ -81,55 +67,30 @@ class _ListProductsMobileTemplateState
         child: Align(
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 1000, maxHeight: 1080),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Container(
-                    color: color.getColorTheme().getColorBackgroudPrimary(),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: color
-                              .getColorTheme()
-                              .getColorBackgroundQuaternary(),
-                          borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(0),
-                              topRight: Radius.circular(0))),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 50, vertical: 5),
-                              child: Align(
-                                child: ConstrainedBox(
-                                  constraints:
-                                      const BoxConstraints(maxWidth: 500),
-                                  child: Wrap(
-                                    spacing: 500,
-                                    runSpacing: 15,
-                                    alignment: WrapAlignment.center,
-                                    runAlignment: WrapAlignment.center,
-                                    children: [
-                                      for (int count = 0;
-                                          count < widget.listWidgetsDisplay.length;
-                                          count++)
-                                        widget.listWidgetsDisplay[count]
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
+            child: Container(
+              color: color.getColorTheme().getColorBackgroudPrimary(),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: color.getColorTheme().getColorBackgroundQuaternary(),
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(0),
+                    topRight: Radius.circular(0),
                   ),
-                )
-              ],
+                ),
+                child: ListView.builder(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 50,
+                    vertical: 10,
+                  ),
+                  itemCount: widget.listWidgetsDisplay.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 15),
+                      child: widget.listWidgetsDisplay[index],
+                    );
+                  },
+                ),
+              ),
             ),
           ),
         ),
