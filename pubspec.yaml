@@ -40,6 +40,7 @@ dependencies:
   universal_html: ^2.2.4
   flutter_countdown_timer: ^4.1.0
   brasil_fields: ^1.15.0
+  flutter_native_splash: ^2.0.6
 
 dev_dependencies:
   flutter_test:
@@ -95,3 +96,10 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+flutter_native_splash:
+  color: "#ffffff" # Cor de fundo da tela
+  image: assets/images/logonova.png # Caminho para sua logo
+  android: true # Habilitar para Android
+  ios: true # Habilitar para iOS
+  android_gravity: center # Posição da imagem no Android
+  ios_content_mode: center # Posição da imagem no iOS
