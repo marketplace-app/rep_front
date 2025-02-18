@@ -1,90 +1,93 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, TextInput, Button, TouchableOpacity, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-
-type RootStackParamList = {
-  Home: undefined;
-  Cadastro: undefined;
-};
-
-type LoginAccountNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
-
-interface LoginAccountProps {
-  navigation: LoginAccountNavigationProp;
-}
-
-const LoginAccount: React.FC<LoginAccountProps> = ({ navigation }) => {
+const LoginAccount: React.FC = () => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Estado para controlar a troca de componentes
+
+  useEffect(() => {
+    // Verifica se há um token salvo no AsyncStorage
+    const checkToken = async () => {
+      const userToken = await AsyncStorage.getItem('userToken');
+      if (userToken) {
+        setIsLoggedIn(true); // Se houver token, define o estado como logado
+      }
+    };
+
+    checkToken();
+  }, []);
 
   // Função para login com e-mail e senha usando fetch
   const loginComEmailSenha = async () => {
     try {
-      // Substitua pela URL da sua API de login
-      const response = await fetch('http://192.168.3.4:8000/apt/token', {
+      const response = await fetch('http://192.168.1.248:8000/api/token/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email,
-          senha,
+          username: email,
+          password: senha,
         }),
       });
 
-      if (!response.ok) {
-        throw new Error('Falha ao fazer login');
-      }
-
       const data = await response.json();
-      const userToken = data.token; // Supondo que a resposta da API tenha um campo `token`
+      const userToken = data.access; // Supondo que a resposta da API tenha um campo `access`
       await AsyncStorage.setItem('userToken', userToken); // Salvando o token no AsyncStorage
 
+      setIsLoggedIn(true); // Mudando o estado para logado
       Alert.alert('Login', 'Login realizado com sucesso!');
-      navigation.navigate('Home'); // Navegar para a tela Home após login bem-sucedido
     } catch (error) {
       console.error(error);
       Alert.alert('Erro', 'Falha ao fazer login. Verifique seus dados e tente novamente.');
     }
   };
 
+  // Função para deslogar
+  const logout = async () => {
+    await AsyncStorage.removeItem('userToken');
+    setIsLoggedIn(false); // Mudando o estado para deslogado
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+      <Text style={styles.title}>{isLoggedIn ? 'Data Account' : 'Login'}</Text>
 
-      {/* Campo de e-mail */}
-      <TextInput
-        style={styles.input}
-        placeholder="Usuário"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
+      {isLoggedIn ? (
+        // Componente de "DataAccount" exibido quando o usuário está logado
+        <View>
+          <Text>Bem-vindo ao Data Account</Text>
+          <Button title="Logout" onPress={logout} />
+        </View>
+      ) : (
+        // Componente de Login exibido quando o usuário não está logado
+        <View>
+          <TextInput
+            style={styles.input}
+            placeholder="Usuário"
+            value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
 
-      {/* Campo de senha */}
-      <TextInput
-        style={styles.input}
-        placeholder="Senha"
-        value={senha}
-        onChangeText={setSenha}
-        secureTextEntry
-      />
+          <TextInput
+            style={styles.input}
+            placeholder="Senha"
+            value={senha}
+            onChangeText={setSenha}
+            secureTextEntry
+          />
 
-      {/* Botão Entrar */}
-      <Button title="Entrar" onPress={loginComEmailSenha} />
+          <Button title="Entrar" onPress={loginComEmailSenha} />
 
-      {/* Links para outras opções */}
-      <View style={styles.linksContainer}>
-        <TouchableOpacity onPress={() => Alert.alert('Recuperar Senha')}>
-          <Text style={styles.link}>Esqueceu a senha?</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Cadastro')}>
-          <Text style={styles.link}>Cadastrar-se</Text>
-        </TouchableOpacity>
-      </View>
+          <TouchableOpacity onPress={() => Alert.alert('Recuperar Senha')}>
+            <Text style={styles.link}>Esqueceu a senha?</Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
 };
@@ -103,21 +106,13 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   input: {
-    width: '100%',
+    width: 250,
     height: 40,
     borderColor: '#ccc',
     borderWidth: 1,
     borderRadius: 5,
     marginBottom: 15,
     paddingLeft: 10,
-  },
-  linksContainer: {
-    justifyContent: 'space-between',
-    width: '100%',
-    marginBottom: 20,
-    alignItems: 'center',
-    gap: 4,
-    marginTop: 10,
   },
   link: {
     color: '#007BFF',

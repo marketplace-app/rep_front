@@ -1,35 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Button, TextInput, Alert } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';  // Importando AsyncStorage
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-type RootStackParamList = {
-  Home: undefined;
-  Login: undefined;
-  Cadastro: undefined;
-};
 
-type DataAccountNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
-
-interface DataAccountProps {
-  navigation: DataAccountNavigationProp;
-}
-
-export default function DataAccount({ navigation }: DataAccountProps) {
-  // Simulando dados do usuário
+export default function DataAccount() {
+  // Estado para controlar se o usuário está logado ou não
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [nome, setNome] = useState('');
+  const [password, setpassword] = useState('');
   const [email, setEmail] = useState('joao.silva@example.com');
   const [novoNome, setNovoNome] = useState(nome);
   const [novoEmail, setNovoEmail] = useState(email);
 
-  // Função para atualizar os dados da conta (simulação)
+  useEffect(() => {
+    // Verifica se o token está armazenado no AsyncStorage para determinar o estado de login
+    const checkToken = async () => {
+      const userToken = await AsyncStorage.getItem('userToken');
+      if (userToken) {
+        setIsLoggedIn(true);
+      }
+    };
+
+    checkToken();
+  }, []);
+
+  // Função para atualizar os dados da conta
   const atualizarDados = () => {
     if (!novoNome || !novoEmail) {
       Alert.alert('Erro', 'Por favor, preencha todos os campos');
       return;
     }
 
-    // Aqui você pode fazer uma chamada para a API para atualizar os dados do usuário
+    // Aqui, você pode fazer uma chamada para a API para atualizar os dados
     setNome(novoNome);
     setEmail(novoEmail);
     Alert.alert('Sucesso', 'Dados atualizados com sucesso!');
@@ -38,53 +40,74 @@ export default function DataAccount({ navigation }: DataAccountProps) {
   // Função para sair do sistema
   const sairDoSistema = async () => {
     try {
-      await AsyncStorage.get
-      await AsyncStorage.removeItem('userToken');  // Removendo o token
+      await AsyncStorage.removeItem('userToken'); // Remove o token
+      setIsLoggedIn(false); // Altera o estado de login
       Alert.alert('Sucesso', 'Você saiu do sistema');
-      navigation.navigate('account');  // Navegar de volta para a tela de login
     } catch (error) {
       console.error('Erro ao sair do sistema', error);
       Alert.alert('Erro', 'Houve um problema ao tentar sair.');
     }
   };
 
+  // Função de login (simulação)
+  const login = async () => {
+    try {
+      // Simulando o login com um token
+      const userToken = 'simulated-token';
+      await AsyncStorage.setItem('userToken', userToken); // Armazena o token
+      setIsLoggedIn(true); // Altera o estado de login
+      Alert.alert('Sucesso', 'Login realizado com sucesso!');
+    } catch (error) {
+      Alert.alert('Erro', 'Falha ao tentar logar.');
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Dados da Conta</Text>
+      <Text style={styles.title}>{isLoggedIn ? 'Dados da Conta' : 'Login'}</Text>
 
-      {/* Exibindo os dados atuais do usuário */}
-      <View style={styles.dataContainer}>
-        <Text style={styles.label}>Nome:</Text>
-        <TextInput
-          style={styles.input}
-          value={novoNome}
-          onChangeText={setNovoNome}
-        />
+      {isLoggedIn ? (
+        // Componente de Dados da Conta
+        <View style={styles.dataContainer}>
+          <Text style={styles.label}>Nome:</Text>
+          <TextInput
+            style={styles.input}
+            value={novoNome}
+            onChangeText={setNovoNome}
+          />
 
-        <Text style={styles.label}>E-mail:</Text>
-        <TextInput
-          style={styles.input}
-          value={novoEmail}
-          onChangeText={setNovoEmail}
-          keyboardType="email-address"
-        />
-      </View>
+          <Text style={styles.label}>E-mail:</Text>
+          <TextInput
+            style={styles.input}
+            value={novoEmail}
+            onChangeText={setNovoEmail}
+            keyboardType="email-address"
+          />
 
-      {/* Botão para atualizar os dados */}
-      <Button title="Atualizar Dados" onPress={atualizarDados} />
+          <Button title="Atualizar Dados" onPress={atualizarDados} />
+          <Button title="Sair" onPress={sairDoSistema} />
+        </View>
+      ) : (
+        // Tela de Login
+        <View style={styles.dataContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Usuário"
+            value={novoEmail}
+            onChangeText={setNovoEmail}
+            keyboardType="email-address"
+          />
 
-      {/* Botão para sair do sistema */}
-      <Button title="Sair" onPress={sairDoSistema} />
+          <TextInput
+            style={styles.input}
+            placeholder="Senha"
+            secureTextEntry
+            onChangeText={(text) => setpassword(text)}
+          />
 
-      {/* Link para voltar à tela principal */}
-      <Button
-        title="Voltar"
-        onPress={() => {
-          // Lógica para navegar para a tela anterior (ou principal)
-          // navigation.goBack(); // Se estiver usando navegação com react-navigation
-          Alert.alert('Navegação', 'Aqui você pode navegar para outra tela.');
-        }}
-      />
+          <Button title="Entrar" onPress={login} />
+        </View>
+      )}
     </View>
   );
 }

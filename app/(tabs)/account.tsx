@@ -16,7 +16,7 @@ export default function AccountScreen() {
         const userToken = await AsyncStorage.getItem('userToken');
         if (userToken && userToken.length > 0) {
           // Se o token for válido, vamos buscar os dados do usuário
-          const response = await fetch('http://192.168.3.4:8000/api/home/', {
+          const response = await fetch('http://192.168.1.248:8000/api/home/', {
             method: 'GET',  // Método de requisição
             headers: {
               'Authorization': `Bearer ${userToken}`,  // Passa o token no cabeçalho da requisição
@@ -56,7 +56,7 @@ export default function AccountScreen() {
   return (
     <View style={{ flex: 1 }}>
       {isLoggedIn && userData ? (
-        <DataAccount userData={userData} />  // Passa os dados do usuário para o componente DataAccount
+        <DataAccount/>  // Passa os dados do usuário para o componente DataAccount
       ) : (
         <LoginAccount />
       )}

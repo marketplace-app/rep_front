@@ -11,7 +11,6 @@ export default function PropertiesScreen() {
   return (
     <View>
       <Text>Conta</Text>
-   
     </View>
   );
 }

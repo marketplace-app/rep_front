@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Image, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, Image, View, Text, TouchableOpacity, Alert } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 type RootStackParamList = {
@@ -9,18 +9,17 @@ type RootStackParamList = {
 type ComponenteNavigationProp = NativeStackNavigationProp<RootStackParamList, 'DetalhesImovel'>;
 
 interface ComponenteProps {
-  navigation: ComponenteNavigationProp;
   foto: string;
   titulo: string;
   localizacao: string;
   preco: number;
 }
 
-const Componente: React.FC<ComponenteProps> = ({ navigation, foto, titulo, localizacao, preco }) => {
+const Componente: React.FC<ComponenteProps> = ({  foto, titulo, localizacao, preco }) => {
   return (
     <TouchableOpacity
       style={styles.card}
-      onPress={() => navigation.navigate('DetalhesImovel', { foto, titulo, localizacao, preco })} // Passando os dados para a próxima tela
+      onPress={() => Alert.alert("Cartão clicado")} // Passando os dados para a próxima tela
     >
       <Image
         source={{ uri: foto }} // A foto será passada como uma prop
@@ -31,9 +30,6 @@ const Componente: React.FC<ComponenteProps> = ({ navigation, foto, titulo, local
         <Text style={styles.location}>{localizacao}</Text> {/* Localização do imóvel */}
         <View style={styles.priceContainer}>
           <Text style={styles.price}>R$ {preco}</Text> {/* Preço do imóvel */}
-          <TouchableOpacity style={styles.reserveButton}>
-            <Text style={styles.reserveButtonText}>Reservar</Text>
-          </TouchableOpacity>
         </View>
       </View>
     </TouchableOpacity>
@@ -42,7 +38,7 @@ const Componente: React.FC<ComponenteProps> = ({ navigation, foto, titulo, local
 
 const styles = StyleSheet.create({
   card: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     backgroundColor: '#fff',
     borderRadius: 10,
     marginBottom: 15,
@@ -51,10 +47,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 5,
     elevation: 3,
+    gap: 10,
   },
   image: {
-    width: 100,
-    height: 100,
+    width: "100%",
+    height: 150,
     borderRadius: 10,
   },
   textContainer: {
